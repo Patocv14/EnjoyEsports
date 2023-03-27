@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "image": "https://drive.google.com/uc?export=view&id=1MAoGoRdiw0tUsZOS4c701Sb3azHnrapE",
+    "text": "Rocket League",
+    "alt": "rocketLeagueFoto"
+  },
+  {
+    "id": 2,
+    "image": "https://drive.google.com/uc?export=view&id=1OYPfUIVVDJUQfuZvd-vUTC9ERFK7-5yI",
+    "text": "Laegue of Legends",
+    "alt": "lolFoto"
+  },
+  {
+    "id": 3,
+    "image": "https://drive.google.com/uc?export=view&id=1mwMiJi4qkvTOZjO14AsUzR3YoabruReO",
+    "text": "Valorant",
+    "alt": "valorantFoto"
+  },
+  {
+    "id": 4,
+    "image": "https://drive.google.com/uc?export=view&id=1OOSk3jyKfHldEsSJUk_P3azsiCMfPbOD",
+    "text": "Smash Bros",
+    "alt": "smashBrosFoto"
+  },
+  {
+    "id": 5,
+    "image": "https://drive.google.com/uc?export=view&id=1siGIn9FzqiuDQaNr7NSe2Rki3egHCFbk",
+    "text": "Fifa 23",
+    "alt": "fifaFoto"
+  }
+]

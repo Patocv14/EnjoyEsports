@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer {
+  @media (max-width: 1100px) {
+    .enjoyImage {
+      background-image: url("../../public/assets/Header.png");
+      height: 500px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .enjoyImage2 {
+      background-image: url("../../public/assets/Header.png");
+      height: 100%;
+
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  @font-face {
+    font-family: "fuenteEnjoy";
+    src: url(../fuentes/Fixture-Black.otf);
+  }
+
+  .fuenteEnjoy {
+    font-family: "fuenteEnjoy";
+  }
+  .enjoyLogo {
+    height: 95px;
+    width: 95px;
+  }
+  .imagenTazon {
+    width: 500px;
+    height: 500px;
+  }
+  .imagenSlider {
+    width: 50%;
+  }
+
+  header {
+    background-color: transparent;
+  }
+
+  header.abajo {
+    background-color: #a0d2eb;
+  }
+
+  .headerBlur {
+    backdrop-filter: blur(6px);
+  }
+  .autoImagen {
+    width: auto;
+    height: auto;
+  }
+
+  .noticiaBg {
+    background-image: url("../../public/assets/noticias.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .imagenCompetencias {
+    max-width: 200px;
+    max-height: 200px;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+}

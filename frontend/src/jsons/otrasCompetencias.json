@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "image": "https://drive.google.com/uc?export=view&id=1BFsEapPUK7CmV0v5VXiCHCd-XXUh2sU8",
+    "text": "Torneo IntraUniversitario de la UANL",
+    "alt": "UANL TORNEO"
+  },
+  {
+    "id": 2,
+    "image": "https://drive.google.com/uc?export=view&id=125qMi2DBRgNNSgCjSPYbsqEtcyJFq-1j",
+    "text": "Tazon de los Flechados",
+    "alt": "tazonFlechados"
+  },
+  {
+    "id": 3,
+    "image": "https://drive.google.com/uc?export=view&id=1FytMYcMm04CVEyWazQUtxcAKMEQZbi3w",
+    "text": "Collegiate Rocket League",
+    "alt": "rocketLeagueFoto"
+  }
+]
