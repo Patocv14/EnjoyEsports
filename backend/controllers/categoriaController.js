@@ -17,9 +17,9 @@ const nuevaCategoria = async (req, res) => {
 
 const obtenerCategoria = async (req, res) => {
   const { id } = req.params;
-  const categoria = await Categoria.findById(id);
+  const categoria = await Categoria.findById(id.match(/^[0-9a-fA-F]{24}$/));
   if (!categoria) {
-    return res.status(404).json({ msg: 'No encontrado' });
+    return res.status(404).json({ msg: 'Categoria no Encontrada' });
   }
 
   res.json(categoria);
@@ -27,9 +27,9 @@ const obtenerCategoria = async (req, res) => {
 
 const actualizarCategoria = async (req, res) => {
   const { id } = req.params;
-  const categoria = await Categoria.findById(id);
-  if (!Categoria) {
-    return res.status(404).json({ msg: 'No encontrado' });
+  const categoria = await Categoria.findById(id.match(/^[0-9a-fA-F]{24}$/));
+  if (!categoria) {
+    return res.status(404).json({ msg: 'Categoria no Encontrada' });
   }
 
   categoria.titulo = req.body.titulo || categoria.titulo;
@@ -44,7 +44,7 @@ const actualizarCategoria = async (req, res) => {
 };
 const eliminarCategoria = async (req, res) => {
   const { id } = req.params;
-  const categoria = await Categoria.findById(id);
+  const categoria = await Categoria.findById(id.match(/^[0-9a-fA-F]{24}$/));
   if (!categoria) {
     return res.status(404).json({ msg: 'No encontrado' });
   }

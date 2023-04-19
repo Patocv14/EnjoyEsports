@@ -12,6 +12,12 @@ const categoriaSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    universidades: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Universidad',
+      },
+    ],
   },
   {
     timestamps: true,

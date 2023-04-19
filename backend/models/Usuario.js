@@ -30,6 +30,44 @@ const usuarioSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    cordinador: {
+      type: Boolean,
+      default: false,
+    },
+    datos: {
+      nombreCompleto: {
+        type: String,
+      },
+      gamertag: {
+        type: String,
+      },
+      Universidad: {
+        type: String,
+      },
+      Campus: {
+        type: String,
+      },
+      Localidad: {
+        type: String,
+      },
+      foto: {
+        type: String,
+      },
+      fechaNacimiento: {
+        type: String,
+      },
+      estudiando: {
+        type: Boolean,
+        default: true,
+      },
+      tiempoActivo: {
+        type: String,
+      },
+      juego: {
+        type: String,
+      },
+      redes: [],
+    },
   },
   {
     timestamps: true,
