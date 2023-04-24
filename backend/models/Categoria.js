@@ -18,6 +18,12 @@ const categoriaSchema = mongoose.Schema(
         ref: 'Universidad',
       },
     ],
+    equipos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Equipo',
+      },
+    ],
   },
   {
     timestamps: true,

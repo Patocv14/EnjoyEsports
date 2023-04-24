@@ -6,7 +6,7 @@ const equipoSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    titulo: {
+    categoria: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Categoria',
     },
@@ -23,6 +23,10 @@ const equipoSchema = mongoose.Schema(
     universidad: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Universidad',
+    },
+    coach: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Usuario',
     },
   },
   //TODO: relacionar el schema de matches con este esquema

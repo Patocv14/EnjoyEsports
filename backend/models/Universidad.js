@@ -19,6 +19,10 @@ const universidadSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    cordinador: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Usuario',
+    },
     categorias: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -31,6 +35,14 @@ const universidadSchema = mongoose.Schema(
         ref: 'Equipo',
       },
     ],
+    redes: [],
+    correo: {
+      type: String,
+      required: true,
+    },
+    discord: {
+      type: String,
+    },
     //TODO: agregar puntos y puntos ranking
   },
   {

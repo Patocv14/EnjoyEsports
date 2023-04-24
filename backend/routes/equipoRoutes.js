@@ -6,6 +6,7 @@ import {
   nuevoEquipo,
   actualizarEquipo,
   eliminarEquipo,
+  salirEquipo,
 } from '../controllers/equipoController.js';
 
 import checkAuth from '../middleware/checkAuth.js';
@@ -19,5 +20,6 @@ router
   .get(checkAuth, obtenerEquipo)
   .put(checkAuth, actualizarEquipo)
   .delete(checkAuth, eliminarEquipo);
+router.get('/salir/:id', checkAuth, salirEquipo);
 
 export default router;

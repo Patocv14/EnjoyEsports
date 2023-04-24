@@ -18,7 +18,6 @@ router
   .post(checkAuth, isAdmin, nuevaNoticia);
 
 // TODO: Crear rol de editor
-// TODO: Crear rol de cordinador deportido
 
 router
   .route('/:id')

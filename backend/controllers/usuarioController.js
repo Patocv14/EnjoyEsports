@@ -5,11 +5,17 @@ import generarJWT from '../helpers/generarJWT.js';
 
 const registrar = async (req, res) => {
   const { email } = req.body; // sacamos el email del formulario
+  const { Universidad } = req.body.datos;
   const existeUsuario = await Usuario.findOne({ email }); // buscamos el email en la db
   if (existeUsuario) {
     // Esta funcion comprueba si el email ingresado ya existe en la db
     const error = new Error('Usuario ya registrado');
     return res.status(400).json({ msg: error.message });
+  }
+  if (!Universidad) {
+    // Esta funcion comprueba si el email ingresado ya existe en la db
+    const error = new Error('No se encontro la universidad');
+    return res.status(404).json({ msg: error.message });
   }
   try {
     const usuario = new Usuario(req.body);
@@ -123,6 +129,27 @@ const perfil = async (req, res) => {
   res.json(usuario);
 };
 
+const allUsers = async (req, res) => {
+  const usuarios = await Usuario.find();
+  res.json(usuarios);
+};
+
+const sacarMiembro = async (req, res) => {
+  const { usuario } = await req.body;
+
+  let buscarMiembro = await Usuario.findById(usuario).select(
+    '-password -confirmado -token -createdAt -updatedAt -__v -cordinador -admin -email '
+  );
+  buscarMiembro.datos.Equipo = null;
+
+  try {
+    await buscarMiembro.save();
+    res.json({ msg: 'Eliminaste a un miembro correctamente' });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   registrar,
   autenticar,
@@ -131,4 +158,6 @@ export {
   comprobarToken,
   nuevoPassword,
   perfil,
+  allUsers,
+  sacarMiembro,
 };

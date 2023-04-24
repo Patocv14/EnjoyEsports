@@ -9,6 +9,8 @@ import {
   comprobarToken,
   nuevoPassword,
   perfil,
+  allUsers,
+  sacarMiembro,
 } from '../controllers/usuarioController.js';
 
 import checkAuth from '../middleware/checkAuth.js';
@@ -19,6 +21,8 @@ router.get('/confirmar/:token', confirmar);
 router.post('/olvide-password', olvidePassword);
 router.route('/olvide-password/:token').get(comprobarToken).post(nuevoPassword);
 
+router.get('/allUsers', checkAuth, allUsers);
 router.get('/perfil', checkAuth, perfil);
+router.put('/salir', checkAuth, sacarMiembro);
 
 export default router;

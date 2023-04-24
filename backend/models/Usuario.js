@@ -42,7 +42,12 @@ const usuarioSchema = mongoose.Schema(
         type: String,
       },
       Universidad: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Universidad',
+      },
+      Equipo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Universidad',
       },
       Campus: {
         type: String,
@@ -58,7 +63,6 @@ const usuarioSchema = mongoose.Schema(
       },
       estudiando: {
         type: Boolean,
-        default: true,
       },
       tiempoActivo: {
         type: String,
@@ -66,7 +70,11 @@ const usuarioSchema = mongoose.Schema(
       juego: {
         type: String,
       },
-      redes: [],
+      redes: [
+        {
+          type: String,
+        },
+      ],
     },
   },
   {

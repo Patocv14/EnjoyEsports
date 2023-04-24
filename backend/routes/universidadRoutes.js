@@ -23,6 +23,6 @@ router
   .put(checkAuth, actualizarUniversidad)
   .delete(checkAuth, eliminarUniversidad);
 
-router.get('/:id/equipos', checkAuth, obtenerEquiposLigadosConUni);
-//TODO: Falta agregar las rutas con el id
+router.route('/:id/equipos').get(checkAuth, obtenerEquiposLigadosConUni);
+
 export default router;
