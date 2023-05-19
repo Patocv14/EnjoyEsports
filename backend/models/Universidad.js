@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const universidadSchema = mongoose.Schema(
   {
@@ -21,21 +21,25 @@ const universidadSchema = mongoose.Schema(
     },
     cordinador: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Usuario',
+      ref: "Usuario",
     },
     categorias: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Categoria',
+        ref: "Categoria",
       },
     ],
     teams: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Equipo',
+        ref: "Equipo",
       },
     ],
-    redes: [],
+    redes: [
+      {
+        type: String,
+      },
+    ],
     correo: {
       type: String,
       required: true,
@@ -50,5 +54,5 @@ const universidadSchema = mongoose.Schema(
   }
 );
 
-const Universidad = mongoose.model('Universidad', universidadSchema);
+const Universidad = mongoose.model("Universidad", universidadSchema);
 export default Universidad;

@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import conectarDb from './config/db.js';
+import cors from 'cors';
 
 import usuarioRoutes from './routes/usuarioRoutes.js';
 import categoriaRoutes from './routes/categoriaRoutes.js';
@@ -14,6 +15,21 @@ app.use(express.json()); //Esto habilita el poder leer archivos json en postman
 dotenv.config(); //Me aceptara las variables de entorno
 
 conectarDb(); // Funcion para dar inicio a la database
+
+//configurar cors
+const whiteList = [process.env.FRONTEND_URL];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whiteList.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Error de Cors'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 //Routing
 app.use('/api/usuarios', usuarioRoutes);

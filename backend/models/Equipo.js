@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const equipoSchema = mongoose.Schema(
   {
@@ -8,25 +8,26 @@ const equipoSchema = mongoose.Schema(
     },
     categoria: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Categoria',
+      ref: "Categoria",
+      required: true,
     },
     confirmado: {
       type: Boolean,
       default: false,
     },
 
-    miembros: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }],
+    miembros: [{ type: mongoose.Schema.Types.ObjectId, ref: "Usuario" }],
     capitan: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Usuario',
+      ref: "Usuario",
     },
     universidad: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Universidad',
+      ref: "Universidad",
     },
     coach: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Usuario',
+      ref: "Usuario",
     },
   },
   //TODO: relacionar el schema de matches con este esquema
@@ -36,5 +37,5 @@ const equipoSchema = mongoose.Schema(
   }
 );
 
-const Equipo = mongoose.model('Equipo', equipoSchema);
+const Equipo = mongoose.model("Equipo", equipoSchema);
 export default Equipo;

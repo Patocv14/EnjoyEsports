@@ -1,9 +1,10 @@
-import Categoria from '../models/Categoria.js';
+import Categoria from "../models/Categoria.js";
 
 const obtenerCategorias = async (req, res) => {
   const categorias = await Categoria.find();
   res.json(categorias);
 };
+
 const nuevaCategoria = async (req, res) => {
   const categoria = new Categoria(req.body);
 
@@ -19,7 +20,7 @@ const obtenerCategoria = async (req, res) => {
   const { id } = req.params;
   const categoria = await Categoria.findById(id.match(/^[0-9a-fA-F]{24}$/));
   if (!categoria) {
-    return res.status(404).json({ msg: 'Categoria no Encontrada' });
+    return res.status(404).json({ msg: "Categoria no Encontrada" });
   }
 
   res.json(categoria);
@@ -29,7 +30,7 @@ const actualizarCategoria = async (req, res) => {
   const { id } = req.params;
   const categoria = await Categoria.findById(id.match(/^[0-9a-fA-F]{24}$/));
   if (!categoria) {
-    return res.status(404).json({ msg: 'Categoria no Encontrada' });
+    return res.status(404).json({ msg: "Categoria no Encontrada" });
   }
 
   categoria.titulo = req.body.titulo || categoria.titulo;
@@ -46,12 +47,12 @@ const eliminarCategoria = async (req, res) => {
   const { id } = req.params;
   const categoria = await Categoria.findById(id.match(/^[0-9a-fA-F]{24}$/));
   if (!categoria) {
-    return res.status(404).json({ msg: 'No encontrado' });
+    return res.status(404).json({ msg: "No encontrado" });
   }
 
   try {
     await categoria.deleteOne();
-    res.json({ msg: 'Categoria Eliminada' });
+    res.json({ msg: "Categoria Eliminada" });
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const usuarioSchema = mongoose.Schema(
   {
@@ -34,6 +34,10 @@ const usuarioSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    capitan: {
+      type: Boolean,
+      default: false,
+    },
     datos: {
       nombreCompleto: {
         type: String,
@@ -43,11 +47,13 @@ const usuarioSchema = mongoose.Schema(
       },
       Universidad: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Universidad',
+        ref: "Universidad",
+        default: null,
       },
       Equipo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Universidad',
+        ref: "Equipo",
+        default: null,
       },
       Campus: {
         type: String,
@@ -81,8 +87,8 @@ const usuarioSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-usuarioSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
+usuarioSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
     next();
   }
   const salt = await bcrypt.genSalt(10);
@@ -93,5 +99,5 @@ usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
   return await bcrypt.compare(passwordFormulario, this.password);
 };
 
-const Usuario = mongoose.model('Usuario', usuarioSchema);
+const Usuario = mongoose.model("Usuario", usuarioSchema);
 export default Usuario;
