@@ -2,10 +2,17 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { useParams } from "react-router-dom";
 
 const NavbarUsuario = ({ pagina }) => {
-  const { auth } = useAuth();
+  const params = useParams();
+  const { auth, cerrarSesionAuth } = useAuth();
   const [state, setState] = useState(false);
+
+  const handleCerrarSession = () => {
+    cerrarSesionAuth();
+    localStorage.removeItem("token");
+  };
 
   useEffect(() => {
     const changeValueScroll = () => {
@@ -20,6 +27,8 @@ const NavbarUsuario = ({ pagina }) => {
 
     window.addEventListener("scroll", changeValueScroll);
   }, []);
+
+  const perfil = params.id === auth._id;
 
   return (
     <header
@@ -38,14 +47,71 @@ const NavbarUsuario = ({ pagina }) => {
                 >
                   Home
                 </Link>
+
                 <Link
-                  to="/usuario/equipo"
+                  to={`/usuario/equipos`}
                   className={`${
-                    pagina === "equipo" ? " text-naranja" : ""
+                    pagina === "equipos" ? " text-naranja" : ""
                   }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
                 >
-                  Equipo
+                  Equipos
                 </Link>
+                <Link
+                  to="/usuario/universidades"
+                  className={`${
+                    pagina === "universidades" ? " text-naranja" : ""
+                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
+                >
+                  Universidades
+                </Link>
+                <Link
+                  to="/usuario/categorias"
+                  className={`${
+                    pagina === "categorias" ? " text-naranja" : ""
+                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
+                >
+                  Categorias
+                </Link>
+
+                <Link
+                  to="/"
+                  className={`${
+                    pagina === "" ? " text-naranja" : ""
+                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
+                >
+                  Inicio
+                </Link>
+                <Link
+                  to={`/usuario/perfil/${auth._id}`}
+                  className={`${
+                    perfil ? " text-naranja" : ""
+                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100 border-s`}
+                >
+                  <p className="ms-5">{auth.nombre}</p>
+                </Link>
+
+                {auth.datos.Equipo === null && auth.capitan === true ? (
+                  <Link
+                    to={`/usuario/crear-equipo`}
+                    className={`${
+                      pagina === "equipo" ? " text-naranja" : ""
+                    }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
+                  >
+                    Equipo
+                  </Link>
+                ) : auth.capitan === true ? (
+                  <Link
+                    to={`/usuario/equipo/${auth.datos?.Equipo}`}
+                    className={`${
+                      pagina === "equipo" ? " text-naranja" : ""
+                    }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
+                  >
+                    Equipo
+                  </Link>
+                ) : (
+                  <Link></Link>
+                )}
+
                 {auth.cordinador && (
                   <Link
                     to="/usuario/universidad"
@@ -57,37 +123,13 @@ const NavbarUsuario = ({ pagina }) => {
                   </Link>
                 )}
 
-                {/* <Link
-                //   to="/usuario/noticias"
-                  className={`${
-                    pagina === "noticias" ? " text-naranja" : ""
-                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
-                >
-                  Noticias
-                </Link>
                 <Link
-                //   to="/competencias"
+                  onClick={handleCerrarSession}
                   className={`${
-                    pagina === "universidades" ? " text-naranja" : ""
-                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
+                    pagina === "" ? " text-naranja" : ""
+                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100  `}
                 >
-                  Universidades
-                </Link>
-                <Link
-                //   to="/universidades"
-                  className={`${
-                    pagina === "equipos" ? " text-naranja" : ""
-                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
-                >
-                  Equipos
-                </Link> */}
-                <Link
-                  to="/"
-                  className={`${
-                    pagina === "equipos" ? " text-naranja" : ""
-                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
-                >
-                  Inicio
+                  <p>LogOut</p>
                 </Link>
               </div>
             </div>

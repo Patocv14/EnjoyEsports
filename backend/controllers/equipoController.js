@@ -15,7 +15,9 @@ const obtenerEquipo = async (req, res) => {
   const { id } = req.params; // sacamos el id de la url
   const equipo = await Equipo.findById(id)
     .populate("miembros")
-    .populate("universidad"); // buscamos el id del equipo en la base de datos
+    .populate("universidad")
+    .populate("capitan")
+    .populate("categoria"); // buscamos el id del equipo en la base de datos
   if (!equipo) {
     // verificamos que exista el equipo en la base de datos, de lo contraio retornamos error
     const error = new Error("No se encontro el equipo");
@@ -32,7 +34,7 @@ const nuevoEquipo = async (req, res) => {
   const existeEquipo = await Equipo.findOne({ teamName });
   let existeCategoria = await Categoria.findById(
     categoria.match(/^[0-9a-fA-F]{24}$/)
-  ).select("-createdAt -updatedAt -__v -titulo -imagen -universidades");
+  ).select("-createdAt -updatedAt -__v -titulo -imagen");
 
   if (!existeCategoria) {
     const error = new Error("No se encontro la categoria");
@@ -49,7 +51,10 @@ const nuevoEquipo = async (req, res) => {
   }
 
   req.body.capitan = await req.usuario._id; // seteamos un capitan con el usuario que hizo el request
-  const { miembros } = await req.body;
+  if (!req.usuario.cordinador) {
+    req.body.miembros.push(req.usuario._id.toString());
+  }
+  let { miembros } = await req.body;
 
   try {
     for (const miembro of miembros) {
@@ -69,6 +74,8 @@ const nuevoEquipo = async (req, res) => {
     const equipoAlmacenado = await Equipo.create(req.body);
     existeUni.teams.push(equipoAlmacenado._id);
     existeCategoria.equipos.push(equipoAlmacenado._id);
+    existeCategoria.universidades.push(existeUni._id);
+
     for (const miembro of miembros) {
       let existenMiembros = await Usuario.findById(miembro).select(
         "-password -confirmado -token -createdAt -updatedAt -__v -cordinador -admin -email "
@@ -149,9 +156,16 @@ const eliminarEquipo = async (req, res) => {
     "-createdAt -updatedAt -__v -titulo -imagen -universidades"
   );
   //todo: que el admin pueda elimiarnlo
-  if (equipo.capitan.toString() !== req.usuario._id.toString()) {
-    const error = new Error("Solo el capitan puede eliminar el equipo");
-    return res.status(401).json({ msg: error.message });
+
+  if (!req.usuario.admin) {
+    if (req.usuario._id.toString() !== existeUni.cordinador.toString()) {
+      if (equipo.capitan.toString() !== req.usuario._id.toString()) {
+        const error = new Error(
+          "Solo el capitan o el coordinador puede eliminar el equipo"
+        );
+        return res.status(401).json({ msg: error.message });
+      }
+    }
   }
 
   try {

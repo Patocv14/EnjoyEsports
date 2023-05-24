@@ -1,15 +1,13 @@
-import { useParams } from "react-router-dom";
-import useAdmin from "../../../hooks/useAdmin";
+import NavbarUsuario from "../../components/Usuarios/Navbar";
+import useUsuario from "../../hooks/useUsuario";
+import { Link, useParams } from "react-router-dom";
+import Spinner from "../../components/globales/Spinner";
 import { useEffect, useState } from "react";
-import NavbarAdmin from "../../../components/Admin/Navbar";
-import { Link } from "react-router-dom";
-import Spinner from "../../../components/globales/Spinner";
 
-const EquiposCategorias = () => {
-  const pagina = "categorias";
+const CategoriasEquipos = () => {
+  const pagina = "equipos";
   const params = useParams();
-
-  const { obtenerEquipos, cargando, categoria, teams } = useAdmin();
+  const { obtenerEquipos, cargando, cat, teams } = useUsuario();
 
   const [cargandoPerfil, setCargandoPerfil] = useState(true);
 
@@ -22,11 +20,11 @@ const EquiposCategorias = () => {
 
   return (
     <>
-      <NavbarAdmin pagina={pagina} />
+      <NavbarUsuario pagina={pagina} />
       <div className="">
         <div className="mt-[98px] absolute laptop:mt-24 ms-10">
           <Link
-            to="/admin/categorias"
+            to="/usuario/categorias"
             className="bg-naranja p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-orange-700 transition-colors"
           >
             Regresar
@@ -41,13 +39,13 @@ const EquiposCategorias = () => {
             <div className="  h-4/6 w-4/6 rounded border-2 shadow-xl ">
               <div className="text-center pt-5">
                 <p className=" text-slate-400 md:text-xl">Categoria</p>
-                <h1 className="md:text-5xl text-3xl">{categoria?.titulo}</h1>
+                <h1 className="md:text-5xl text-3xl">{cat?.titulo}</h1>
                 <p className="text-naranja md:text-xl">Equipos</p>
               </div>
               <div className=" h-4/6 overflow-y-auto pt-10">
                 {teams.map((obj, index) => (
                   <div key={index} className="pb-5 lg:text-lg text-sm ">
-                    <Link to={`/admin/equipo/${obj._id}`}>
+                    <Link to={`/usuario/equipo/${obj._id}`}>
                       <div className=" mx-10 bg-gray-200 rounded py-2 justify-center flex items-center  transition-all duration-150 hover:border hover:border-naranja border border-gray200">
                         <div className="w-1/12  ms-10 mr-5 md:flex hidden justify-start ">
                           <img
@@ -75,4 +73,4 @@ const EquiposCategorias = () => {
   );
 };
 
-export default EquiposCategorias;
+export default CategoriasEquipos;

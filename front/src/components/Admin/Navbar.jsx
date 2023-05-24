@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { useParams } from "react-router-dom";
 
 const NavbarAdmin = ({ pagina }) => {
+  const { auth } = useAuth();
+  const params = useParams();
   const [state, setState] = useState(false);
 
   useEffect(() => {
@@ -18,6 +22,8 @@ const NavbarAdmin = ({ pagina }) => {
 
     window.addEventListener("scroll", changeValueScroll);
   }, []);
+
+  const perfil = params.id === auth._id;
 
   return (
     <header
@@ -44,16 +50,16 @@ const NavbarAdmin = ({ pagina }) => {
                 >
                   Categorias
                 </Link>
-                <Link
+                {/* <Link
                   to="/admin/noticias"
                   className={`${
                     pagina === "noticias" ? " text-naranja" : ""
                   }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
                 >
                   Noticias
-                </Link>
+                </Link> */}
                 <Link
-                  // to="/competencias"
+                  to="/admin/universidades"
                   className={`${
                     pagina === "universidades" ? " text-naranja" : ""
                   }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
@@ -61,9 +67,9 @@ const NavbarAdmin = ({ pagina }) => {
                   Universidades
                 </Link>
                 <Link
-                  // to="/universidades"
+                  to="/admin/equipos"
                   className={`${
-                    pagina === "equipos" ? " text-naranja" : ""
+                    pagina === "equipos" && !perfil ? " text-naranja" : ""
                   }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
                 >
                   Equipos
@@ -71,10 +77,27 @@ const NavbarAdmin = ({ pagina }) => {
                 <Link
                   to="/"
                   className={`${
-                    pagina === "equipos" ? " text-naranja" : ""
+                    pagina === "inicio" ? " text-naranja" : ""
                   }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
                 >
                   Inicio
+                </Link>
+
+                <Link
+                  to={`/admin/perfil/${auth._id}`}
+                  className={`${
+                    perfil ? " text-naranja" : ""
+                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100 border-s`}
+                >
+                  <p className="ms-5">{auth.nombre}</p>
+                </Link>
+
+                <Link
+                  className={`${
+                    pagina === "" ? " text-naranja" : ""
+                  }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100  `}
+                >
+                  <p>LogOut</p>
                 </Link>
               </div>
             </div>

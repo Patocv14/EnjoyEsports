@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const AdminContext = createContext();
 
@@ -12,14 +13,20 @@ const AdminProvider = ({ children }) => {
   const [categorias, setCategorias] = useState([]);
   const [equipos, setEquipos] = useState({});
   const [universidad, setUniversidad] = useState({});
+  const [teams, setTeams] = useState([]);
+
+  const { auth } = useAuth();
 
   useEffect(() => {
     const obtenerCategorias = async () => {
+      setCargando(true);
       try {
         const { data } = await clienteAxios("categoria");
         setCategorias(data);
+        setCargando(false);
       } catch (error) {
         console.log(error);
+        setCargando(false);
       }
     };
     obtenerCategorias();
@@ -168,6 +175,7 @@ const AdminProvider = ({ children }) => {
         },
       };
       const { data } = await clienteAxios(`/categoria/${id}`, config);
+      console.log(data);
       setCategoria(data);
     } catch (error) {
       console.log(error);
@@ -176,10 +184,11 @@ const AdminProvider = ({ children }) => {
     }
   };
 
-  const obtenerEquipo = async (id) => {
+  const obtenerEquipos = async (id) => {
     setCargando(true);
     setCategoria({});
     setEquipos({});
+    setTeams([]);
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -193,11 +202,17 @@ const AdminProvider = ({ children }) => {
       const { data } = await clienteAxios(`/categoria/${id}`, config);
       setCategoria(data);
       const categoriaId = data._id;
-      const teams = data.equipos;
-      teams.map(async (equipo) => {
-        let { data } = await clienteAxios(`/equipo/${equipo}`, config);
-        categoriaId === data.categoria ? setEquipos(data) : "hpl";
+      const equipoData = data.equipos;
+      const equipoPromise = equipoData.map(async (equipo) => {
+        const datos = await clienteAxios(`/equipo/${equipo}`, config);
+        if (categoriaId === datos.data.categoria._id) {
+          setEquipos(datos.data);
+          setTeams((prevTeams) => [...prevTeams, datos.data]);
+        }
+        1;
       });
+
+      await Promise.all(equipoPromise);
     } catch (error) {
       console.log(error);
     } finally {
@@ -281,6 +296,52 @@ const AdminProvider = ({ children }) => {
     }
   };
 
+  const eliminarEquipo = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await clienteAxios.delete(`/equipo/${id}`, config);
+    } catch (error) {
+      setTimeout(() => {
+        setAlerta({
+          msg: error.response.data.msg,
+          data: true,
+        });
+      }, 3000);
+    }
+  };
+
+  const eliminarUniversidad = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await clienteAxios.delete(`/universidad/${id}`, config);
+    } catch (error) {
+      setTimeout(() => {
+        setAlerta({
+          msg: error.response.data.msg,
+          data: true,
+        });
+      }, 3000);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -293,10 +354,13 @@ const AdminProvider = ({ children }) => {
         categorias,
         cargando,
         eliminarCategoria,
-        obtenerEquipo,
+        obtenerEquipos,
         equipos,
         universidad,
         submitUniversidad,
+        teams,
+        eliminarEquipo,
+        eliminarUniversidad,
       }}
     >
       {children}

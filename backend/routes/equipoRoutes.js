@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 
 import {
   obtenerEquipo,
@@ -7,19 +7,19 @@ import {
   actualizarEquipo,
   eliminarEquipo,
   salirEquipo,
-} from '../controllers/equipoController.js';
+} from "../controllers/equipoController.js";
 
-import checkAuth from '../middleware/checkAuth.js';
+import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.route('/').get(checkAuth, obtenerEquipos).post(checkAuth, nuevoEquipo);
+router.route("/").get(checkAuth, obtenerEquipos).post(checkAuth, nuevoEquipo);
 
 router
-  .route('/:id')
-  .get(checkAuth, obtenerEquipo)
+  .route("/:id")
+  .get(obtenerEquipo)
   .put(checkAuth, actualizarEquipo)
   .delete(checkAuth, eliminarEquipo);
-router.get('/salir/:id', checkAuth, salirEquipo);
+router.get("/salir/:id", checkAuth, salirEquipo);
 
 export default router;

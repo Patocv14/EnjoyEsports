@@ -22,10 +22,10 @@ const FormularioEquipo = () => {
     }
     //Pasar datos al provider
     await submitEquipo({ teamName, categoria, miembros, universidad });
-    setTeamName("");
-    setCategoria("");
-    setMiembros("");
-    setUniversidad("");
+    // setTeamName("");
+    // setCategoria("");
+    // setMiembros("");
+    // setUniversidad("");
   };
 
   const { msg } = alerta;

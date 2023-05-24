@@ -165,6 +165,23 @@ const sacarMiembro = async (req, res) => {
   }
 };
 
+const obtenerPerfil = async (req, res) => {
+  const { id } = req.params;
+  let buscarMiembro = await Usuario.findById(
+    id.match(/^[0-9a-fA-F]{24}$/)
+  ).select("-password -confirmado -token -createdAt -updatedAt -__v  ");
+
+  if (!buscarMiembro) {
+    const error = new Error("El usuario no existe");
+    return res.status(404).json({ msg: error.message });
+  }
+  await buscarMiembro.datos.populate("Equipo");
+  await buscarMiembro.datos.populate("Universidad");
+  // await buscarMiembro.datos.populate("categoria");
+
+  res.json(buscarMiembro);
+};
+
 export {
   registrar,
   autenticar,
@@ -175,4 +192,5 @@ export {
   perfil,
   allUsers,
   sacarMiembro,
+  obtenerPerfil,
 };

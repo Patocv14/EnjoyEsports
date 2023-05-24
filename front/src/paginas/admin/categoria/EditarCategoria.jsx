@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import FormularioCategorias from "../../../components/Admin/FormularioCategorias";
 import NavbarAdmin from "../../../components/Admin/Navbar";
 import { Link } from "react-router-dom";
+import Spinner from "../../../components/globales/Spinner";
 
 const EditarCategoria = () => {
   const pagina = "categorias";
@@ -19,10 +20,12 @@ const EditarCategoria = () => {
     <>
       <NavbarAdmin pagina={pagina} />
       {cargando ? (
-        "Cargando..."
+        <div className="flex lg:flex-row flex-col-reverse h-screen justify-around items-center fuenteEnjoy mt-20  ">
+          <Spinner />
+        </div>
       ) : (
         <div>
-          <div className="mt-[98px] laptop:mt-24 ms-10">
+          <div className="mt-[98px] absolute laptop:mt-24 ms-10">
             <Link
               to="/admin/categorias"
               className="bg-naranja p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-orange-700 transition-colors"

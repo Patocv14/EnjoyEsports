@@ -20,12 +20,22 @@ import Universidades from "./paginas/inicio/Universidades";
 import Categoria from "./paginas/admin/Categoria";
 import Home from "./paginas/admin/Home";
 import Noticias from "./paginas/admin/Noticias";
+import CrearCategoria from "./paginas/admin/categoria/CrearCategoria";
+import EditarCategoria from "./paginas/admin/categoria/EditarCategoria";
+import EquiposCategorias from "./paginas/admin/categoria/EquiposCategorias";
+import Seleccionar from "./paginas/admin/categoria/Seleccionar";
+import PerfilAdmin from "./paginas/admin/PerfilAdmin";
+import EquipoAdmin from "./paginas/admin/Equipo/EquipoAdmin";
+import UniversidadesCategoria from "./paginas/admin/categoria/UniversidadesCategoria";
+import UniversidadAdmin from "./paginas/admin/Universidad/UniversidadAdmin";
+import UniversidadesView from "./paginas/admin/UniversidadesView";
 //Admin
 
 //Usuario
 import HomeUsuario from "./paginas/Usuarios/HomeUsuario";
 import Equipo from "./paginas/Usuarios/Equipo";
 import CrearEquipo from "./paginas/Usuarios/CrearEquipo";
+import Universidad from "./paginas/Usuarios/cordinador/Universidad";
 //Usuario
 
 //Rutas
@@ -38,10 +48,16 @@ import RutaProtegidaUsuario from "./layouts/RutaProtegidaUsuario";
 import { AuthProvider } from "./context/AuthProvider";
 import { AdminProvider } from "./context/AdminProvider";
 import { UsuarioProvider } from "./context/UsuarioProvider";
-import CrearCategoria from "./paginas/admin/categoria/CrearCategoria";
-import EditarCategoria from "./paginas/admin/categoria/EditarCategoria";
-import EquiposCategorias from "./paginas/admin/categoria/EquiposCategorias";
-import Universidad from "./paginas/Usuarios/cordinador/Universidad";
+import EquiposView from "./paginas/admin/EquiposView";
+import Perfil from "./components/Usuarios/Perfil";
+import UniversidadUsuario from "./paginas/Usuarios/UniversidadUsuario";
+import UniversidadesUsuario from "./paginas/Usuarios/UniversidadesUsuario";
+import EquiposUsuarios from "./paginas/Usuarios/EquiposUsuarios";
+import CategoriasUsuario from "./paginas/Usuarios/CategoriasUsuario";
+import CategoriasSeleccionarUsuario from "./paginas/Usuarios/CategoriasSeleccionarUsuario";
+import CategoriasEquipos from "./paginas/Usuarios/CategoriasEquipos";
+import UniversidadesCategoriaUsuarios from "./paginas/Usuarios/UniversidadesCategoriaUsuarios";
+
 //Providers
 
 function App() {
@@ -82,15 +98,52 @@ function App() {
                   path="categorias/equipos/:id"
                   element={<EquiposCategorias />}
                 />
+                <Route
+                  path="categorias/seleccionar/:id"
+                  element={<Seleccionar />}
+                />
+                <Route
+                  path="categorias/universidades/:id"
+                  element={<UniversidadesCategoria />}
+                />
+                <Route path="equipo/:id" element={<EquipoAdmin />} />
+
+                <Route path="universidad/:id" element={<UniversidadAdmin />} />
+                <Route path="universidades" element={<UniversidadesView />} />
+                <Route path="equipos" element={<EquiposView />} />
+                <Route path="perfil/:id" element={<PerfilAdmin />} />
                 <Route path="noticias" element={<Noticias />} />
               </Route>
               {/* SOLO ADMIN PUEDE ACCEDER AQUI */}
 
               <Route path="/usuario" element={<RutaProtegidaUsuario />}>
                 <Route index element={<HomeUsuario />} />
-                <Route path="equipo" element={<Equipo />} />
+                <Route path="equipo/:id" element={<Equipo />} />
                 <Route path="universidad" element={<Universidad />} />
                 <Route path="crear-equipo" element={<CrearEquipo />} />
+                <Route path="perfil/:id" element={<Perfil />} />
+                <Route
+                  path="universidad/:id"
+                  element={<UniversidadUsuario />}
+                />
+                <Route
+                  path="universidades"
+                  element={<UniversidadesUsuario />}
+                />
+                <Route path="categorias" element={<CategoriasUsuario />} />
+                <Route
+                  path="categorias/seleccionar/:id"
+                  element={<CategoriasSeleccionarUsuario />}
+                />
+                <Route
+                  path="categorias/equipos/:id"
+                  element={<CategoriasEquipos />}
+                />
+                <Route
+                  path="categorias/universidades/:id"
+                  element={<UniversidadesCategoriaUsuarios />}
+                />
+                <Route path="equipos" element={<EquiposUsuarios />} />
               </Route>
             </Routes>
           </UsuarioProvider>

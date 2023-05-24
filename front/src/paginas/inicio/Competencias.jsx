@@ -1,6 +1,7 @@
 import Header from "../../components/publica/Inicio/Header";
 import Navbar from "../../components/publica/Inicio/Navbar";
 import Footer from "../../components/publica/Inicio/Footer";
+import { Link } from "react-router-dom";
 
 import useUsuario from "../../hooks/useUsuario";
 
@@ -23,13 +24,15 @@ const Competencias = () => {
           {categoria.map((obj) => (
             <div key={obj._id}>
               <div className="flex justify-center">
-                <img
-                  className="imagenCompetencias rounded-xl transition duration-300 ease-in-out hover:scale-110 cursor-pointer shadow-2xl"
-                  src={obj.imagen}
-                  alt={obj.titulo}
-                  width={384}
-                  height={384}
-                />
+                <Link to={`/usuario/categorias/seleccionar/${obj._id}`}>
+                  <img
+                    className="imagenCompetencias rounded-xl transition duration-300 ease-in-out hover:scale-110 cursor-pointer shadow-2xl"
+                    src={obj.imagen}
+                    alt={obj.titulo}
+                    width={384}
+                    height={384}
+                  />
+                </Link>
               </div>
               <div className="text-center pt-5 pb-10 fuenteEnjoy text-xl uppercase">
                 <h1>{obj.titulo}</h1>

@@ -1,7 +1,9 @@
 import Categoria from "../models/Categoria.js";
 
 const obtenerCategorias = async (req, res) => {
-  const categorias = await Categoria.find();
+  const categorias = await Categoria.find()
+    .populate("universidades")
+    .populate("equipos");
   res.json(categorias);
 };
 
@@ -18,7 +20,9 @@ const nuevaCategoria = async (req, res) => {
 
 const obtenerCategoria = async (req, res) => {
   const { id } = req.params;
-  const categoria = await Categoria.findById(id.match(/^[0-9a-fA-F]{24}$/));
+  const categoria = await Categoria.findById(
+    id.match(/^[0-9a-fA-F]{24}$/)
+  ).populate("universidades");
   if (!categoria) {
     return res.status(404).json({ msg: "Categoria no Encontrada" });
   }
