@@ -97,9 +97,9 @@ const NavbarUsuario = ({ pagina }) => {
                       pagina === "equipo" ? " text-naranja" : ""
                     }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100`}
                   >
-                    Equipo
+                    Crear Equipo
                   </Link>
-                ) : auth.capitan === true ? (
+                ) : auth.datos.Equipo ? (
                   <Link
                     to={`/usuario/equipo/${auth.datos?.Equipo}`}
                     className={`${
@@ -109,7 +109,7 @@ const NavbarUsuario = ({ pagina }) => {
                     Equipo
                   </Link>
                 ) : (
-                  <Link></Link>
+                  ""
                 )}
 
                 {auth.cordinador && (

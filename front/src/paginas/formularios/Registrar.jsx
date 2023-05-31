@@ -8,12 +8,13 @@ const Registrar = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
+  const [imagen, setImagen] = useState("");
   const [alerta, setAlerta] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([nombre, email, password, repetirPassword].includes("")) {
+    if ([nombre, email, password, repetirPassword, imagen].includes("")) {
       setAlerta({
         msg: "Todos los campos son obligatorios",
         error: true,
@@ -44,6 +45,7 @@ const Registrar = () => {
         nombre,
         email,
         password,
+        imagen,
       });
       setAlerta({
         msg: data.msg,
@@ -54,6 +56,7 @@ const Registrar = () => {
       setEmail("");
       setPassword("");
       setRepetirPassword("");
+      setImagen("");
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
@@ -135,6 +138,23 @@ const Registrar = () => {
             id="password2"
             type="password"
             placeholder="Repite tu password"
+            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+          />
+        </div>
+
+        <div className="my-5 ">
+          <label
+            htmlFor="imagen"
+            className="uppercase text-gray-600 block text-xl font-bold"
+          >
+            Imagen
+          </label>
+          <input
+            value={imagen}
+            onChange={(e) => setImagen(e.target.value)}
+            id="imagen"
+            type="text"
+            placeholder="Imagen"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
           />
         </div>

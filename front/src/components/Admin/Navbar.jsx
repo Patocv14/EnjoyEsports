@@ -5,9 +5,14 @@ import useAuth from "../../hooks/useAuth";
 import { useParams } from "react-router-dom";
 
 const NavbarAdmin = ({ pagina }) => {
-  const { auth } = useAuth();
+  const { auth, cerrarSesionAuth } = useAuth();
   const params = useParams();
   const [state, setState] = useState(false);
+
+  const handleCerrarSession = () => {
+    cerrarSesionAuth();
+    localStorage.removeItem("token");
+  };
 
   useEffect(() => {
     const changeValueScroll = () => {
@@ -93,6 +98,7 @@ const NavbarAdmin = ({ pagina }) => {
                 </Link>
 
                 <Link
+                  onClick={handleCerrarSession}
                   className={`${
                     pagina === "" ? " text-naranja" : ""
                   }  hover:text-naranja cursor-pointer uppercase fuenteEnjoy transition-all duration-100  `}

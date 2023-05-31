@@ -161,7 +161,7 @@ const eliminarEquipo = async (req, res) => {
     if (req.usuario._id.toString() !== existeUni.cordinador.toString()) {
       if (equipo.capitan.toString() !== req.usuario._id.toString()) {
         const error = new Error(
-          "Solo el capitan o el coordinador puede eliminar el equipo"
+          "Solo el capitan o el coodinador puede eliminar el equipo"
         );
         return res.status(401).json({ msg: error.message });
       }
@@ -196,23 +196,22 @@ const eliminarEquipo = async (req, res) => {
 };
 
 const salirEquipo = async (req, res) => {
-  const { id } = req.params; // scamos el id de la url
-  const equipo = await Equipo.findById(id); // buscamos el id en la base de datos
+  const { id, id2 } = req.params; // scamos el id de la url
+  const equipo = await Equipo.findById(id2); // buscamos el id en la base de datos
   if (!equipo) {
     // verificamos si no existe el equipo, si no existe mandamos un error
     return res.status(404).json({ msg: "Equipo no Encontrado" });
   }
 
-  const usuario = req.usuario._id;
+  const usuario = id;
   let buscarMiembro = await Usuario.findById(usuario).select(
     "-password -confirmado -token -createdAt -updatedAt -__v -cordinador -admin -email "
   );
   buscarMiembro.datos.Equipo = null;
-  const usuarios = buscarMiembro.equipos.filter((obj) => {
-    return obj.toString() !== equipo._id.toString();
+  const usuarios = await equipo.miembros.filter((obj) => {
+    return obj.toString() !== id.toString();
   });
-  equipo.miemrbos.pop(usuario);
-  // todo: cambiar la logia para uqe funcione porque con el .pop no funcionara
+  equipo.miembros = usuarios;
 
   try {
     await buscarMiembro.save();

@@ -1,13 +1,16 @@
 import NavbarUsuario from "../../components/Usuarios/Navbar";
-import { useParams } from "react-router-dom";
 import useUsuario from "../../hooks/useUsuario";
 import { Link } from "react-router-dom";
+import Spinner from "../../components/globales/Spinner";
 
 const EquiposUsuarios = () => {
   const pagina = "equipos";
 
-  const params = useParams();
   const { categoria, cargando } = useUsuario();
+
+  if (cargando) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -22,7 +25,7 @@ const EquiposUsuarios = () => {
             Universidades Participando
           </h1>
           <div className="container mx-auto">
-            {categoria &&
+            {Array.isArray(categoria) &&
               categoria.map((cat) => (
                 <div key={cat._id}>
                   {cat.equipos.length > 0 && (

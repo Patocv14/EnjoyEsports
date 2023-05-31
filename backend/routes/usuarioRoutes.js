@@ -23,7 +23,7 @@ router.post("/olvide-password", olvidePassword);
 router.route("/olvide-password/:token").get(comprobarToken).post(nuevoPassword);
 router.get("/obtenerPerfil/:id", obtenerPerfil);
 
-router.get("/allUsers", checkAuth, allUsers);
+router.get("/allUsers", allUsers);
 router.get("/perfil", checkAuth, perfil);
 router.put("/salir", checkAuth, sacarMiembro);
 

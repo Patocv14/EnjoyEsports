@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import NavbarUsuario from "../../components/Usuarios/Navbar";
 import { Link } from "react-router-dom";
 import useUsuario from "../../hooks/useUsuario";
+import Spinner from "../../components/globales/Spinner";
 
 const CategoriasUsuario = () => {
   const pagina = "categorias";
 
-  const { categoria, cargando } = useUsuario();
+  let { categoria, cargando } = useUsuario();
+
+  categoria = categoria || [];
+
+  if (cargando) {
+    return <Spinner />;
+  }
 
   return (
     <div className="">

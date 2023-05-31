@@ -1,6 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import useUsuario from "../../hooks/useUsuario";
 import Alerta from "../globales/Alerta";
+import DropdownSearch from "../globales/DropdownSearch";
+import SingleObjectDropdownSearch from "../globales/SingleSelectDropdownSearch";
+import SingleUniversityDropdownSearch from "../globales/SingleUniversityDropdownSearch";
 
 const FormularioEquipo = () => {
   const [teamName, setTeamName] = useState("");
@@ -9,6 +12,18 @@ const FormularioEquipo = () => {
   const [universidad, setUniversidad] = useState("");
 
   const { mostrarAlerta, alerta, submitEquipo } = useUsuario();
+
+  const handleMiembrosChange = (selectedObjects) => {
+    setMiembros(selectedObjects);
+  };
+
+  const handleCategoriaChange = (selectedCategoria) => {
+    setCategoria(selectedCategoria);
+  };
+
+  const handleUniversidadChange = (selectedUniversidad) => {
+    setUniversidad(selectedUniversidad);
+  };
 
   const hanldeSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +35,16 @@ const FormularioEquipo = () => {
       });
       return;
     }
-    //Pasar datos al provider
+
+    // Mostrar los datos obtenidos en la consola
+    console.log("Datos obtenidos:");
+    console.log("Nombre del equipo:", teamName);
+    console.log("Categoría:", categoria);
+    console.log("Miembros del equipo:", miembros);
+    console.log("Universidad:", universidad);
+
+    // Llamar a la función submitEquipo para enviar los datos al servidor
     await submitEquipo({ teamName, categoria, miembros, universidad });
-    // setTeamName("");
-    // setCategoria("");
-    // setMiembros("");
-    // setUniversidad("");
   };
 
   const { msg } = alerta;
@@ -38,7 +57,7 @@ const FormularioEquipo = () => {
       {msg && <Alerta alerta={alerta} />}
       <div className="pb-5">
         <label
-          className="text-gray-700 uppercase font-bold text-sm "
+          className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="teamName"
         >
           Nombre del equipo
@@ -46,7 +65,7 @@ const FormularioEquipo = () => {
         <input
           type="text"
           id="teamName"
-          className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md "
+          className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md"
           placeholder="Nombre del equipo"
           value={teamName}
           onChange={(e) => setTeamName(e.target.value)}
@@ -55,52 +74,35 @@ const FormularioEquipo = () => {
 
       <div className="pb-5">
         <label
-          className="text-gray-700 uppercase font-bold text-sm "
+          className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="juego"
         >
           Juego (id)
         </label>
-        <input
-          type="text"
-          id="juego"
-          className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md "
-          placeholder="Juego"
-          value={categoria}
-          onChange={(e) => setCategoria(e.target.value)}
+        <SingleObjectDropdownSearch
+          handleCategoriaChange={handleCategoriaChange}
         />
       </div>
 
       <div className="pb-5">
         <label
-          className="text-gray-700 uppercase font-bold text-sm "
+          className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="miembros"
         >
-          Miembros del Equipo (id)
+          Miembros del Equipo
         </label>
-        <input
-          type="text"
-          id="miembros"
-          className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md "
-          placeholder="Imagen de la Noticia"
-          value={miembros}
-          onChange={(e) => setMiembros(e.target.value.split(","))}
-        />
+        <DropdownSearch handleMiembrosChange={handleMiembrosChange} isMulti />
       </div>
 
       <div className="pb-5">
         <label
-          className="text-gray-700 uppercase font-bold text-sm "
+          className="text-gray-700 uppercase font-bold text-sm"
           htmlFor="universidad"
         >
-          Universidad (id)
+          Universidad
         </label>
-        <input
-          type="text"
-          id="universidad"
-          className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md "
-          placeholder="Universidad"
-          value={universidad}
-          onChange={(e) => setUniversidad(e.target.value)}
+        <SingleUniversityDropdownSearch
+          handleUniversidadChange={handleUniversidadChange}
         />
       </div>
 

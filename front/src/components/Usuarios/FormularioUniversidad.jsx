@@ -27,7 +27,6 @@ const FormularioUniversidad = () => {
       setUni(universidad.uni);
       setImgUni(universidad.imgUni);
       setInicialesUni(universidad.inicialesUni);
-      setCategorias(universidad.categorias);
       setRedes(universidad.redes);
       setCorreo(universidad.correo);
       setDiscord(universidad.discord);
@@ -51,7 +50,6 @@ const FormularioUniversidad = () => {
       uni,
       imgUni,
       inicialesUni,
-      categorias,
       redes,
       correo,
       discord,
@@ -130,7 +128,7 @@ const FormularioUniversidad = () => {
           />
         </div>
 
-        <div className="pb-5">
+        {/* <div className="pb-5">
           <label
             className="text-gray-700 uppercase font-bold text-sm "
             htmlFor="juegosP"
@@ -145,7 +143,7 @@ const FormularioUniversidad = () => {
             value={cat.map((obj) => obj.titulo)}
             onClick={() => setShowModal(true)}
           />
-        </div>
+        </div> */}
 
         <div className="pb-5">
           <label

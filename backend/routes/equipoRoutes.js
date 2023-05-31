@@ -20,6 +20,7 @@ router
   .get(obtenerEquipo)
   .put(checkAuth, actualizarEquipo)
   .delete(checkAuth, eliminarEquipo);
-router.get("/salir/:id", checkAuth, salirEquipo);
+
+router.delete("/salir/:id/:id2", checkAuth, salirEquipo);
 
 export default router;

@@ -15,7 +15,7 @@ const registrar = async (req, res) => {
   }
   // if (!Universidad) {
   //   // Esta funcion comprueba si el email ingresado ya existe en la db
-  //   const error = new Error('No se encontro la universidad');
+  //   const error = new Error("No se encontro la universidad");
   //   return res.status(404).json({ msg: error.message });
   // }
   try {
@@ -53,6 +53,7 @@ const autenticar = async (req, res) => {
       usuario: usuario.nombre,
       email: usuario.email,
       token: generarJWT(usuario._id),
+      admin: usuario.admin,
     });
   } else {
     const error = new Error("Hubo un error");

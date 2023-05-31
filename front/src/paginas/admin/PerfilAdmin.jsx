@@ -54,8 +54,13 @@ const PerfilAdmin = () => {
       ) : (
         <div className="flex lg:flex-row flex-col-reverse h-screen justify-around items-center fuenteEnjoy mt-20  ">
           <div className=" lg:w-2/12 w-full lg:block flex flex-col justify-center items-center pb-14">
-            <div className="bg-gray-200 h-[400px] w-[400px] rounded-xl shadow-xl ">
-              D
+            <div className="bg-gray-200 h-[400px] w-[400px] rounded-xl shadow-xl flex justify-center items-center ">
+              <img
+                src={usuario?.imagen}
+                className="perfilFoto rounded-lg "
+                height={400}
+                width={400}
+              />
             </div>
             <div className="bg-gray-200 h-[300px] w-[400px] mt-16 rounded-xl shadow-xl">
               <h1 className="text-center pt-2 md:text-2xl">Datos</h1>

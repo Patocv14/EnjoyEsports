@@ -93,7 +93,7 @@ const UniversidadAdmin = () => {
               <div className="bg-gray-200 h-[400px] w-[400px] rounded-xl shadow-xl flex justify-center items-center ">
                 <img
                   src={universidad.imgUni}
-                  className="perfilFoto rounded-lg shadow-2xl"
+                  className="perfilFoto rounded-lg "
                   height={400}
                   width={400}
                 />

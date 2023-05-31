@@ -14,6 +14,7 @@ const AdminProvider = ({ children }) => {
   const [equipos, setEquipos] = useState({});
   const [universidad, setUniversidad] = useState({});
   const [teams, setTeams] = useState([]);
+  const [universidades, setUniversidades] = useState([]);
 
   const { auth } = useAuth();
 
@@ -30,6 +31,21 @@ const AdminProvider = ({ children }) => {
       }
     };
     obtenerCategorias();
+  }, []);
+
+  useEffect(() => {
+    const obtenerUniversiaddes = async () => {
+      setCargando(true);
+      try {
+        const { data } = await clienteAxios(`/universidad`);
+        setUniversidades(data);
+        setCargando(false);
+      } catch (error) {
+        console.log(error);
+        setCargando(false);
+      }
+    };
+    obtenerUniversiaddes();
   }, []);
 
   const mostrarAlerta = (alerta) => {
@@ -361,6 +377,7 @@ const AdminProvider = ({ children }) => {
         teams,
         eliminarEquipo,
         eliminarUniversidad,
+        universidades,
       }}
     >
       {children}

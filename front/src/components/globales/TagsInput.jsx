@@ -8,6 +8,7 @@ const TagsInput = ({ onTagsChange, onTagsData, cat }) => {
 
   function test(e) {
     const value = e;
+
     setTags((prev) => {
       const updatedTags = [...prev, value];
       return updatedTags;
@@ -29,7 +30,7 @@ const TagsInput = ({ onTagsChange, onTagsData, cat }) => {
       <div className="tags-input-container flex items-center overflow-x-auto w-full gap-2 border-b-2">
         {categoria.map((tag, index) => (
           <div key={index}>
-            <div className="tag-item mb-2">
+            <div className="tag-item mb-2 cursor-pointer hover:bg-green-500">
               <span className="text text-xs" onClick={() => test(tag)}>
                 {tag.titulo}
               </span>
@@ -44,7 +45,7 @@ const TagsInput = ({ onTagsChange, onTagsData, cat }) => {
             <div className="tag-item flex">
               <span className="text">{tag.titulo}</span>
               <span
-                className="close cursor-pointer"
+                className="close cursor-pointer hover:bg-red-500"
                 onClick={() => removeTag(index)}
               >
                 &times;

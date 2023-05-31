@@ -38,6 +38,10 @@ const usuarioSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    imagen: {
+      type: String,
+      default: null,
+    },
     datos: {
       nombreCompleto: {
         type: String,

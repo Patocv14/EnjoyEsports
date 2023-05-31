@@ -3,13 +3,15 @@ import { useState } from "react";
 import Alerta from "../../components/globales/Alerta";
 import clienteAxios from "../../config/clienteAxios";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState({});
 
-  const { setAuth } = useAuth();
+  const { setAuth, auth } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +32,11 @@ const Login = () => {
       setAlerta({});
       localStorage.setItem("token", data.token);
       setAuth(data);
+      if (data.admin) {
+        navigate("/admin");
+      } else {
+        navigate("/usuario");
+      }
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,

@@ -14,8 +14,8 @@ const UsuarioProvider = ({ children }) => {
   const [equipos, setEquipos] = useState({});
   const [teams, setTeams] = useState([]);
   const [cat, setCat] = useState({});
+  const [universidades, setUniversidades] = useState([]);
 
-  const navigate = useNavigate();
   const { auth } = useAuth;
 
   useEffect(() => {
@@ -140,9 +140,33 @@ const UsuarioProvider = ({ children }) => {
     }
   };
 
+  const eliminarJugador = async (id, id2) => {
+    console.log(id);
+    console.log(id2);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await clienteAxios.delete(`/equipo/salir/${id}/${id2}`, config);
+    } catch (error) {
+      setTimeout(() => {
+        setAlerta({
+          msg: error.response.data.msg,
+          data: true,
+        });
+      }, 3000);
+    }
+  };
+
   const obtenerEquipos = async (id) => {
     setCargando(true);
-    setCategoria({});
     setEquipos({});
     setTeams([]);
     try {
@@ -176,6 +200,21 @@ const UsuarioProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    const obtenerUniversiaddes = async () => {
+      setCargando(true);
+      try {
+        const { data } = await clienteAxios(`/universidad`);
+        setUniversidades(data);
+        setCargando(false);
+      } catch (error) {
+        console.log(error);
+        setCargando(false);
+      }
+    };
+    obtenerUniversiaddes();
+  }, []);
+
   return (
     <UsuarioContext.Provider
       value={{
@@ -193,6 +232,9 @@ const UsuarioProvider = ({ children }) => {
         obtenerEquipos,
         equipos,
         teams,
+        cat,
+        universidades,
+        eliminarJugador,
       }}
     >
       {children}
